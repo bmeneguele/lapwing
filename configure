@@ -1,0 +1,39 @@
+#!/bin/sh
+
+USAGE="Usage: $(basename $0) [OPTIONS]
+options:
+  --prefix=<path>  installation prefix
+  --enable-debug   include debug symbols (default)
+  --disable-debug  do not include debug symbols
+
+Note that all invalid options are silently ignored."
+
+PREFIX="/usr/local"
+DEBUG=true
+
+for arg in "$@"; do
+    case "$arg" in
+    --prefix=*)
+        PREFIX=$(echo $arg | sed 's/--prefix=//')
+        ;;
+    --enable-debug)
+        DEBUG=true
+        ;;
+    --disable-debug)
+        DEBUG=false
+        ;;
+    --help|-h)
+        echo "$USAGE"
+        exit 0
+        ;;
+    esac
+done
+
+echo 'generating makefile ...'
+echo "prefix = $PREFIX" > Makefile
+if [ "$DEBUG" == "true" ]; then
+    echo 'debug = -g' >> Makefile
+fi
+
+cat Makefile.in >> Makefile
+echo 'configuration complete, type "make" to build.'

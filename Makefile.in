@@ -1,0 +1,36 @@
+# Common prefix for installation directories
+# arch-independent
+includedir := $(prefix)/include
+# arch-dependent
+exec_prefix := $(prefix)
+libdir := $(exec_prefix)/lib
+
+# lapwing project specific vars and rules
+prog := liblapwing.so
+src := $(wildcard src/*.c)
+obj := $(src:.c=.o)
+
+CFLAGS := -ansi -Wall -Wextra -Wpedantic -Wpadded -Werror $(debug)
+INCLUDE := -I./include/
+
+all: $(prog)
+	@echo $^ generated
+
+$(prog): $(obj)
+	$(CC) -shared $(CFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) -fPIC $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+.PHONY: clean install uninstall
+clean:
+	rm -f $(obj) $(prog)
+
+install: $(prog)
+	install -D -m 755 liblapwing.so $(DESTDIR)$(prefix)/lib/liblapwing.so
+	install -d $(DESTDIR)$(prefix)/include/lapwing
+	install -D -m 644 include/lapwing/* $(DESTDIR)$(prefix)/include/lapwing
+
+uninstall:
+	rm -f $(DESTDIR)$(prefix)/lib/lapwing.so
+	rm -rf $(DESTDIR)$(prefix)/include/lapwing
