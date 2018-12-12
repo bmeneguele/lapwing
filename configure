@@ -35,5 +35,13 @@ if [ "$DEBUG" == "true" ]; then
     echo 'debug = -g' >> Makefile
 fi
 
+which valgrind &> /dev/null
+if [ $? -ne 0 ]; then
+    echo "INFO: No \"valgrind\" found in your PATH. Consider install it to" \
+         "improve testing coverage"
+else
+    echo "valgrind = valgrind" >> Makefile
+fi
+
 cat Makefile.in >> Makefile
 echo 'configuration complete, type "make" to build.'
