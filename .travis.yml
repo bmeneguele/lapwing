@@ -1,0 +1,20 @@
+dist: trusty
+os:
+    - linux
+
+git:
+    quiet: true
+branches:
+    only: master
+    
+language: c
+compiler:
+    - gcc
+env:
+    - PREFIX="./_build"
+    - DESTDIR="./_install"
+
+script:
+    - ./configure --prefix=$PREFIX
+    - make
+    - make test
