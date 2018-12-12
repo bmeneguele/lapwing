@@ -2,7 +2,7 @@
 
 USAGE="Usage: $(basename $0) [OPTIONS]
 options:
-  --prefix=<path>  installation prefix
+  --prefix=<path>  installation prefix (default: /usr/local)
   --enable-debug   include debug symbols (default)
   --disable-debug  do not include debug symbols
 
