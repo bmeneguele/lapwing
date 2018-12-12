@@ -51,7 +51,7 @@ uninstall:
 	rm -f $(DESTDIR)$(prefix)/lib/lapwing.so
 	rm -rf $(DESTDIR)$(prefix)/include/lapwing
 
-test: $(tests_prog) install
+test: install $(tests_prog)
 	@echo '=== RUNNING UNIT TESTS ==='
 	@for test_out in $(tests_prog); do \
 		echo ">>> unit: $$test_out"; \
