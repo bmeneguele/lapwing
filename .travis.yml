@@ -11,10 +11,9 @@ language: c
 compiler:
     - gcc
 env:
-    - PREFIX="./_build"
-    - DESTDIR="./_install"
+    - DESTDIR="_install"
 
 script:
-    - ./configure --prefix=$PREFIX
+    - ./configure
     - make
-    - make test
+    - make DESTDIR=$DESTDIR test
