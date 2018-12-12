@@ -8,19 +8,19 @@ options:
 
 Note that all invalid options are silently ignored."
 
-PREFIX="/usr/local"
-DEBUG=true
+PREFIX='/usr/local'
+DEBUG='true'
 
 for arg in "$@"; do
     case "$arg" in
     --prefix=*)
-        PREFIX=$(echo $arg | sed 's/--prefix=//')
+        PREFIX="$(echo $arg | sed 's/--prefix=//')"
         ;;
     --enable-debug)
-        DEBUG=true
+        DEBUG='true'
         ;;
     --disable-debug)
-        DEBUG=false
+        DEBUG='false'
         ;;
     --help|-h)
         echo "$USAGE"
@@ -31,7 +31,7 @@ done
 
 echo 'generating makefile ...'
 echo "prefix = $PREFIX" > Makefile
-if [ "$DEBUG" == "true" ]; then
+if [ "$DEBUG" = "true" ]; then
     echo 'debug = -g' >> Makefile
 fi
 

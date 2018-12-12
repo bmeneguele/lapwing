@@ -11,7 +11,7 @@ src := $(wildcard src/*.c)
 obj := $(src:.c=.o)
 
 CFLAGS := -ansi -Wall -Wextra -Wpedantic -Wpadded -Werror $(debug)
-INCLUDE := -I./include/
+INCLUDE := -Iinclude/
 
 # "test" rule flags
 tests_src := $(wildcard tests/*.c)
@@ -22,21 +22,21 @@ ifdef ($(valgrind))
 	valgrind_prog := valgrind $(VFLAGS)
 endif
 
-INCLUDE_TEST := $(INCLUDE) -I./tests/unity/
-LDFLAGS_TEST := -L$(DESTDIR)$(prefix)/lib -llapwing
+INCLUDE_TEST := -I$(DESTDIR)$(prefix)/include/ -Itests/unity/
+LDFLAGS_TEST := / -llapwing 
 
 # targets
 all: $(prog) $(test_progs)
 	@echo $^ generated
 
 $(prog): $(obj)
-	$(CC) -shared $(CFLAGS) -o $@ $^
+	$(CC) $^ -shared $(CFLAGS) -o $@
 
 src/%.o: src/%.c
 	$(CC) -fPIC $(INCLUDE) $(CFLAGS) -o $@ -c $<
 
 tests/%.out: tests/%.c
-	$(CC) $(INCLUDE_TEST) $(LDFLAGS_TEST) $(CFLAGS) -o $@ tests/unity/unity.c $<
+	$(CC) tests/unity/unity.c $< $(INCLUDE_TEST) -L$(DESTDIR)$(prefix)/lib/ -llapwing $(CFLAGS) -o $@
 
 .PHONY: clean install uninstall test
 clean:
