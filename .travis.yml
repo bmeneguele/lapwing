@@ -13,7 +13,10 @@ compiler:
 env:
     - DESTDIR="_install"
 
-script:
+install:
     - ./configure
     - make
+    - make DESTDIR=$DESTDIR install
+
+script:
     - make DESTDIR=$DESTDIR test
