@@ -2,6 +2,9 @@
 Small, simple, open source crypto library for anyone willing to learn more on
 the field
 
+[![Build Status](https://travis-ci.com/bmeneguele/lapwing.svg?branch=master)](https://travis-ci.com/bmeneguele/lapwing)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Features
 
 **TBD**
