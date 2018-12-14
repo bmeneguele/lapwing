@@ -33,7 +33,7 @@ ifdef ($(valgrind))
 endif
 
 INCLUDE_TEST := -I$(DESTDIR)$(prefix)/include/ -Itests/unity/
-LDFLAGS_TEST := / -llapwing 
+LDFLAGS_TEST := -L$(DESTDIR)$(prefix)/lib/ -llapwing 
 
 # compilation target rules
 all: $(prog) $(test_progs)
@@ -46,7 +46,7 @@ src/%.o: src/%.c
 	$(CC) -fPIC $(INCLUDE) $(CFLAGS) -o $@ -c $<
 
 tests/%.out: tests/%.c
-	$(CC) tests/unity/unity.c $< $(INCLUDE_TEST) -L$(DESTDIR)$(prefix)/lib/ -llapwing $(CFLAGS) -o $@
+	$(CC) tests/unity/unity.c $< $(INCLUDE_TEST) $(LDFLAGS_TEST) $(CFLAGS) -o $@
 
 # compilation/installation related rules
 .PHONY: clean install uninstall
