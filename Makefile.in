@@ -1,4 +1,14 @@
-# Common prefix for installation directories
+# project versioning
+LAPWING_MAJOR = 0
+LAPWING_MINOR = 0
+LAPWING_PATCH = 0
+
+ifeq ($(LAPWING_PATCH), 0)
+	version := v$(LAPWING_MAJOR).$(LAPWING_MINOR)
+else
+	version := v$(LAPWING_MAJOR).$(LAPWING_MINOR).$(LAPWING_PATCH)
+endif
+
 # arch-independent
 includedir := $(prefix)/include
 # arch-dependent
@@ -25,7 +35,7 @@ endif
 INCLUDE_TEST := -I$(DESTDIR)$(prefix)/include/ -Itests/unity/
 LDFLAGS_TEST := / -llapwing 
 
-# targets
+# compilation target rules
 all: $(prog) $(test_progs)
 	@echo $^ generated
 
@@ -38,7 +48,8 @@ src/%.o: src/%.c
 tests/%.out: tests/%.c
 	$(CC) tests/unity/unity.c $< $(INCLUDE_TEST) -L$(DESTDIR)$(prefix)/lib/ -llapwing $(CFLAGS) -o $@
 
-.PHONY: clean install uninstall test
+# compilation/installation related rules
+.PHONY: clean install uninstall
 clean:
 	rm -f $(obj) $(prog) $(tests_prog)
 
@@ -51,6 +62,8 @@ uninstall:
 	rm -f $(DESTDIR)$(prefix)/lib/lapwing.so
 	rm -rf $(DESTDIR)$(prefix)/include/lapwing
 
+# test related rules
+.PHONY: test
 test: install $(tests_prog)
 	@echo '=== RUNNING UNIT TESTS ==='
 	@for test_out in $(tests_prog); do \
@@ -58,3 +71,16 @@ test: install $(tests_prog)
 		LD_LIBRARY_PATH=$(DESTDIR)$(prefix)/lib $(valgrind_prog) ./$$test_out; \
 	done
 	@echo '=== END OF UNIT TESTS ==='
+
+# tag related rules
+.PHONY: tag-create tag-release
+tag-create: $(prog)
+	@echo '=== CREATING RELEASE ==='
+	@git tag -a "$(version)" -m "Release $(version)"
+	@echo 'INFO: ready to run "make tag-release"'
+	@echo "=== RELEASE $(version) CREATED ==="
+
+tag-release: tag-create
+	@echo '=== PUSHING RELEASE $(version) ==='
+	@git push --tags origin master
+	@echo '=== RELEASE $(version) PUSHED ==='
