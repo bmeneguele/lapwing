@@ -9,6 +9,15 @@ the field
 
 **TBD**
 
+# Goal
+
+As decoupled as possible. Build an architecture that allows the user
+enable/disable features in a per-algorithm granularity. The idea is not make
+this library as complete as possible, but as simples as possible. Focus in size
+first, then performance. Bring the library up-to-date regarding hardware crypto
+capabilities. Make this library be suitable mainly for small projects (at
+first).
+
 # Installation
 The steps to install and use the library are pretty much the standard for
 others Linuxes projects:
@@ -55,4 +64,16 @@ $ LD_LIBRARY_PATH=./build/lib/ ./<your-app>
 
 # Contributing
 
-**TBD**
+A dedicated file will be added to the source code in the future about coding
+style and other subjects, but for now make sure to:
+
+* use built-in GitHub pull requests for contributing with code;
+* feel free to open issues and reference them in any pull request;
+* use `<Tabs>` instead of `<spaces>` on source code;
+* make sure to limit the line length to 79 (13" screens with tmux sessions
+  might have a hard time with more than that);
+* commit must always start with a `<file>: ` prefix to indicate where the most
+  changes are just by reading the commit log.
+
+I'll keep an IRC channel alive on `irc.mozilla.org` server and `#lapwing`
+channel. Feel free to join to discuss anything related to the project.
