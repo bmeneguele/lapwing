@@ -74,7 +74,7 @@ style and other subjects, but for now make sure to:
   might have a hard time with more than that);
 * commit must always start with a `<file>: ` prefix to indicate where the most
 * changes were performed, just by reading the commit title. In case of doubt,
-* check older commits.
+  check older commits.
 
 I'll keep an IRC channel alive on `irc.freenode.net` server and `#lapwing`
 channel. Feel free to join to discuss anything related to the project.
