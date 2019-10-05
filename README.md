@@ -69,11 +69,12 @@ style and other subjects, but for now make sure to:
 
 * use built-in GitHub pull requests for contributing with code;
 * feel free to open issues and reference them in any pull request;
-* use `<Tabs>` instead of `<spaces>` on source code;
+* use `<tabs>` instead of `<spaces>` on source code;
 * make sure to limit the line length to 79 (13" screens with tmux sessions
   might have a hard time with more than that);
 * commit must always start with a `<file>: ` prefix to indicate where the most
-  changes are just by reading the commit log.
+* changes were performed, just by reading the commit title. In case of doubt,
+* check older commits.
 
-I'll keep an IRC channel alive on `irc.mozilla.org` server and `#lapwing`
+I'll keep an IRC channel alive on `irc.freenode.net` server and `#lapwing`
 channel. Feel free to join to discuss anything related to the project.
